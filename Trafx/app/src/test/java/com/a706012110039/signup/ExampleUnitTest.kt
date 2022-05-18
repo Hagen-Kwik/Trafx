@@ -1,4 +1,4 @@
-package com.example.trafx
+package com.a706012110039.signup
 
 import org.junit.Test
 

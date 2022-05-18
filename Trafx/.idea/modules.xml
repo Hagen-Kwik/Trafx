@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Trafx.iml" filepath="$PROJECT_DIR$/.idea/modules/Trafx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Trafx.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Trafx.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Trafx.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Trafx.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Trafx.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Trafx.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Trafx.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Trafx.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/signup.iml" filepath="$PROJECT_DIR$/.idea/modules/signup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/signup.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/signup.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/signup.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/signup.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/signup.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/signup.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/signup.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/signup.app.unitTest.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package com.example.trafx
+package com.a706012110039.signup
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.trafx", appContext.packageName)
+        assertEquals("com.a706012110039.signup", appContext.packageName)
     }
 }
