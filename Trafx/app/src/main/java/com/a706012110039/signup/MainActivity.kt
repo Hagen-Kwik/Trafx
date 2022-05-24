@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import model.user
 import com.a706012110039.signup.databinding.ActivityMainBinding
-
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         viewBind.button.isEnabled = false
         listener()
+
+
+//        example: textview2 langsung aku panggil tanpa harus ada binding
+        textView2.setText("adsfsda")
+
     }
     var pswCompleted = false
     var nameCompleted = false
