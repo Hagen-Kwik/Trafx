@@ -26,14 +26,18 @@ class signupActivity : AppCompatActivity() {
     var pswCompleted = false
     var nameCompleted = false
     var emailCompleted = false
+    var alamatCompleted = false
+    var creditCompleted = false
 
     private fun listener() {
         viewBind.button.setOnClickListener {
             var nama = viewBind.NamaTextInputLayout.editText?.text.toString().trim()
             var email = viewBind.EmailTextInputLayout.editText?.text.toString().trim()
             var password = viewBind.PasswordTextInputLayout.editText?.text.toString().trim()
+            var alamat = viewBind.AlamatTextInputLayout.editText?.text.toString().trim()
+            var credit_card = viewBind.CreditCardTextInputLayout.editText?.text.toString().trim()
 
-            user = user(nama, email, password)
+            user = user(nama, email, password, alamat, credit_card)
 
             checker()
         }
@@ -79,10 +83,33 @@ class signupActivity : AppCompatActivity() {
                 benar()
             }
         }
-
-        viewBind.signup.setOnClickListener {
-            val myIntent = Intent(this, MainActivity::class.java)
-            startActivity(myIntent)
+        viewBind.AlamatTextInputLayout.editText?.addTextChangedListener {
+            var alamat = viewBind.AlamatTextInputLayout.editText?.text.toString().trim()
+            if (alamat.isEmpty()){
+                viewBind.AlamatTextInputLayout.error = "Tolong isi kolom alamat"
+                alamatCompleted = false
+                benar()
+            }else
+            {
+                viewBind.AlamatTextInputLayout.error = ""
+                alamatCompleted = true
+                benar()
+            }
+        }
+        viewBind.CreditCardTextInputLayout.editText?.addTextChangedListener {
+            var cc = viewBind.CreditCardTextInputLayout.editText?.text.toString().trim()
+            if (cc.isEmpty()){
+                viewBind.CreditCardTextInputLayout.error = "Tolong isi kolom password"
+                creditCompleted = false
+                benar()
+            }else
+            {
+                viewBind.CreditCardTextInputLayout.error = ""
+                creditCompleted = true
+                benar()
+            }
+        }
+        viewBind.textView2.setOnClickListener {
             finish()
         }
     }
@@ -91,7 +118,7 @@ class signupActivity : AppCompatActivity() {
 
     private fun benar()
     {
-        if(pswCompleted && nameCompleted && emailCompleted)
+        if(pswCompleted && nameCompleted && emailCompleted && alamatCompleted && creditCompleted)
         {
             viewBind.button.isEnabled = true
         }else
@@ -103,13 +130,43 @@ class signupActivity : AppCompatActivity() {
 
     private fun checker(){
         var isCompleted:Boolean = true
-
-        //nama
+        var namaerror: Int = 0
+        //nama tidak boleh sama
+        if(!x.isEmpty()){
+            for(i in 0..x.size){
+                if(user.nama == x.get(i).nama){
+                    namaerror = 1
+                    break
+                }
+            }
+        }
         if(user.nama!!.isEmpty()){
             viewBind.NamaTextInputLayout.error = "Tolong isi kolom nama"
             isCompleted = false
-        }else{
+        }
+        else if(namaerror == 1){
+            viewBind.NamaTextInputLayout.error = "username taken"
+            isCompleted = false
+        }
+        else
+        {
             viewBind.NamaTextInputLayout.error = ""
+        }
+
+        //credit card
+        if(user.nama!!.isEmpty()){
+            viewBind.CreditCardTextInputLayout.error = "Tolong isi kolom Credit card"
+            isCompleted = false
+        }else{
+            viewBind.CreditCardTextInputLayout.error = ""
+        }
+
+        //alamat
+        if(user.alamat!!.isEmpty()){
+            viewBind.AlamatTextInputLayout.error = "Tolong isi kolom alamat"
+            isCompleted = false
+        }else{
+            viewBind.AlamatTextInputLayout.error = ""
         }
 
         //Email

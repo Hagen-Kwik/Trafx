@@ -12,7 +12,6 @@ import model.user
 import com.a706012110039.signup.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBind: ActivityMainBinding;
     private lateinit var user:user
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //        example: textview2 langsung aku panggil tanpa harus ada binding
-        textView2.setText("adsfsda")
+// okeyy tyyyyy        textView2.setText("adsfsda")
 
     }
     var pswCompleted = false

@@ -28,15 +28,10 @@ class SplashActivity2 : AppCompatActivity() {
         binding.imageView2.alpha = 0f
 
         star = findViewById(R.id.imageView2)
-
-        animate()
-    }
-
-    private fun animate()
-    {
-        val animator = ObjectAnimator.ofFloat(star, View.ALPHA, 0f)
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.start()
+        star.alpha = 0f
+        star.animate().setDuration(3000).alpha(1f).withEndAction{
+            val myintent = Intent(this, MainActivity::class.java)
+            startActivity(myintent)
+        }
     }
 }

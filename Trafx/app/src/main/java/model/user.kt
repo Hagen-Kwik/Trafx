@@ -3,12 +3,16 @@ package model
 import android.os.Parcel
 import android.os.Parcelable
 
-class user (
+class user(
     var nama:String?,
     var email:String?,
-    var password:String?
+    var password:String?,
+    var alamat: String?,
+    var credit_card: String?
 ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
