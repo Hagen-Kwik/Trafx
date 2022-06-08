@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     if(viewBind.PasswordTextInputLayout.editText?.text.toString().trim().equals(x.get(index).password))
                     {
-                        val myIntent = Intent(this, profileActivity::class.java).apply {
+                        val myIntent = Intent(this, BottomnavbarActivity::class.java).apply {
                             putExtra("angka1", index)
                         }
                         startActivity(myIntent)

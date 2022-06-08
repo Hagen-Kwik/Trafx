@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Signup">
         <activity
+            android:name=".BottomnavbarActivity"
+            android:exported="false" />
+        <activity
             android:name=".home"
             android:exported="false" />
         <activity

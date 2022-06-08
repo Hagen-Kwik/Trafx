@@ -21,11 +21,16 @@
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/drawable/ic_logo.xml" value="0.1" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/drawable/market.xml" value="0.1" />
+        <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_bottomnavbar.xml" value="0.1743659420289855" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_home.xml" value="0.1743659420289855" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_profile.xml" value="0.12454710144927536" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_signup.xml" value="0.16" />
         <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/activity_splash2.xml" value="0.1" />
+        <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/fragment_menuhome.xml" value="0.25" />
+        <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/fragment_menumarket.xml" value="0.33" />
+        <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/layout/fragment_menuportfolio.xml" value="0.33" />
+        <entry key="..\:/semester 2/final/Trafx/Trafx/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18" />
       </map>
     </option>
   </component>
