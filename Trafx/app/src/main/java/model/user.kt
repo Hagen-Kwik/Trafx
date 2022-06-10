@@ -9,7 +9,7 @@ class user(
     var password:String?,
     var alamat: String?,
     var credit_card: String?
-):Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -19,12 +19,16 @@ class user(
     ) {
     }
 
-    override fun describeContents(): Int {
-        TODO("Not yet implemented")
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(nama)
+        parcel.writeString(email)
+        parcel.writeString(password)
+        parcel.writeString(alamat)
+        parcel.writeString(credit_card)
     }
 
-    override fun writeToParcel(p0: Parcel?, p1: Int) {
-        TODO("Not yet implemented")
+    override fun describeContents(): Int {
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<user> {
@@ -36,4 +40,5 @@ class user(
             return arrayOfNulls(size)
         }
     }
+
 }

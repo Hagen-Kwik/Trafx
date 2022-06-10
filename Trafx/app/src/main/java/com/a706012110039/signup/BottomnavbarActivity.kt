@@ -10,7 +10,7 @@ class BottomnavbarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewbind = ActivityBottomnavbarBinding.inflate(layoutInflater)
         setContentView(viewbind.root)
-
+        supportActionBar?.hide()
         setcurfragment(MenuhomeFragment())
 
         viewbind.bottomNavigationViewBottomnavbar.setOnNavigationItemSelectedListener {

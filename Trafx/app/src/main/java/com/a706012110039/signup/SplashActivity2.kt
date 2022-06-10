@@ -30,7 +30,8 @@ class SplashActivity2 : AppCompatActivity() {
         star = findViewById(R.id.imageView2)
         star.alpha = 0f
         star.animate().setDuration(3000).alpha(1f).withEndAction{
-            val myintent = Intent(this, MainActivity::class.java)
+//            val myintent = Intent(this, MainActivity::class.java)
+            val myintent = Intent(this, BottomnavbarActivity::class.java)
             startActivity(myintent)
             finish()
         }

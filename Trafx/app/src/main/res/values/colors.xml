@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="navy">#FF14274E</color>
+    <color name="lightnavy">#FF133270</color>
+    <color name="menunacy">#FF223867</color>
+    <color name="profit">#FF1fbf44</color>
+    <color name="loss">#FFbf1f1f</color>
 </resources>

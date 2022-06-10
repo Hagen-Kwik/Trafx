@@ -133,7 +133,7 @@ class signupActivity : AppCompatActivity() {
         var namaerror: Int = 0
         //nama tidak boleh sama
         if(!x.isEmpty()){
-            for(i in 0..x.size){
+            for(i in 0..x.size-1){
                 if(user.nama == x.get(i).nama){
                     namaerror = 1
                     break
@@ -203,12 +203,8 @@ class signupActivity : AppCompatActivity() {
         }
 
         if (isCompleted){
-            val myIntent = Intent(this, MainActivity::class.java).apply {
-                putExtra("status", "Sign up berhasil")
-            }
             x.add(user)
             Toast.makeText(this, "sign up berhasil", Toast.LENGTH_LONG).show()
-            startActivity(myIntent)
             finish()
         }
     }
