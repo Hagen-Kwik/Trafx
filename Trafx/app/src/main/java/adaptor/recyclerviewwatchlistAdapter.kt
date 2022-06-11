@@ -1,25 +1,25 @@
 package adaptor
 
 import Interface.cardlistener
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a706012110039.signup.R
-import model.saham
 import com.a706012110039.signup.databinding.CardviewSahammarketBinding
+import model.sahamwatchlist
 
-class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener: cardlistener):
-    RecyclerView.Adapter<recyclerviewsahamAdapter.viewHolder>() {
+class recyclerviewwatchlistAdapter(val listSaham: ArrayList<sahamwatchlist>, val cardlistener: cardlistener):
+    RecyclerView.Adapter<recyclerviewwatchlistAdapter.viewHolder>() {
 
     //memanage cardview saham market dan recyclerviewnya
     class viewHolder (itemView: View, val cardlistener: cardlistener): RecyclerView.ViewHolder(itemView){
         val binding = CardviewSahammarketBinding.bind(itemView)
 
-        fun setDatasahammarket(data: saham){
+        fun setDatasahammarket(data: sahamwatchlist){
             binding.Value.text = data.open.toString()
-            //          binding.change.text = (data.open!!.toInt() - data.close!!.toInt()).toString()
-
+  //          binding.change.text = (data.open!!.toInt() - data.close!!.toInt()).toString()
             //mengubah warna (dikomen karena value nya belum ada)
 //            if(binding.change.text.toString().toInt() < 0){
 //                binding.change.setTextColor(Color.parseColor("#FF1fbf44"))
@@ -40,7 +40,7 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): recyclerviewsahamAdapter.viewHolder {
+    ): recyclerviewwatchlistAdapter.viewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
         // declare cardview
@@ -48,13 +48,12 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
         return viewHolder(view, cardlistener)
     }
 
-    //mengset data di cardviewnya
-    override fun onBindViewHolder(holder: recyclerviewsahamAdapter.viewHolder, position: Int) {
-        holder.setDatasahammarket(listSaham[position])
-    }
-
     //jumlah dari recyclerview
     override fun getItemCount(): Int {
         return listSaham.size
+    }
+
+    override fun onBindViewHolder(holder: viewHolder, position: Int) {
+        holder.setDatasahammarket(listSaham[position])
     }
 }

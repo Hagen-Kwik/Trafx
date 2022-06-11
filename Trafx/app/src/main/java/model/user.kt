@@ -8,14 +8,20 @@ class user(
     var email:String?,
     var password:String?,
     var alamat: String?,
-    var credit_card: String?
+    var credit_card: String?,
+    var money: String?,
+    var watchlist: ArrayList<Int> = ArrayList(),
+    var ownedstock: ArrayList<sahamportfolio> = ArrayList()
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readSerializable() as ArrayList<Int>,
+        parcel.readSerializable() as ArrayList<sahamportfolio>
     ) {
     }
 
@@ -25,6 +31,9 @@ class user(
         parcel.writeString(password)
         parcel.writeString(alamat)
         parcel.writeString(credit_card)
+        parcel.writeString(money)
+        parcel.readSerializable() as ArrayList<Int>
+        parcel.readSerializable() as ArrayList<sahamportfolio>
     }
 
     override fun describeContents(): Int {
@@ -40,5 +49,6 @@ class user(
             return arrayOfNulls(size)
         }
     }
+
 
 }

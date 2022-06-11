@@ -4,13 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.a706012110039.signup.publicuser.Companion.x
-import android.os.Handler
-import android.view.View
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import model.user
 import com.a706012110039.signup.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import database.globalvar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBind: ActivityMainBinding;
@@ -24,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         viewBind.button.isEnabled = false
         listener()
-
+        x.add(user("a","a","a","a","1","2000000"))
 
 //        example: textview2 langsung aku panggil tanpa harus ada binding
 // okeyy tyyyyy        textView2.setText("adsfsda")
@@ -87,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                 {
                     if(viewBind.PasswordTextInputLayout.editText?.text.toString().trim().equals(x.get(index).password))
                     {
+                        globalvar.curuser = index
                         val myIntent = Intent(this, BottomnavbarActivity::class.java).apply {
                             putExtra("angka1", index)
                         }

@@ -1,24 +1,24 @@
 package com.a706012110039.signup
 
 import com.a706012110039.signup.publicuser.Companion.x
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.a706012110039.signup.databinding.ActivitySignupBinding
+import database.globalvar
 import model.user
 
 class signupActivity : AppCompatActivity() {
-    private lateinit var viewBind: ActivitySignupBinding;
+    private lateinit var viewBind: ActivitySignupBinding
     private lateinit var user:user
-
+    private var index = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBind = ActivitySignupBinding.inflate(layoutInflater)
-        setContentView(viewBind.root
-        )
+        setContentView(viewBind.root)
+        getaction()
         viewBind.button.isEnabled = false
         supportActionBar?.hide()
         listener()
@@ -29,6 +29,24 @@ class signupActivity : AppCompatActivity() {
     var alamatCompleted = false
     var creditCompleted = false
 
+    private fun getaction(){
+        index = intent.getIntExtra("position",-1)
+        if(index != -1){
+            viewBind.NamaTextInputLayout.editText?.setText( x.get(index).nama.toString())
+            viewBind.PasswordTextInputLayout.editText?.setText( x.get(index).password.toString())
+            viewBind.EmailTextInputLayout.editText?.setText( x.get(index).email.toString())
+            viewBind.AlamatTextInputLayout.editText?.setText( x.get(index).alamat.toString())
+            viewBind.CreditCardTextInputLayout.editText?.setText( x.get(index).credit_card.toString())
+
+            viewBind.button.text = "Edit profile"
+            pswCompleted = true
+            nameCompleted = true
+            emailCompleted = true
+            alamatCompleted = true
+            creditCompleted = true
+            benar()
+        }
+    }
     private fun listener() {
         viewBind.button.setOnClickListener {
             var nama = viewBind.NamaTextInputLayout.editText?.text.toString().trim()
@@ -37,7 +55,7 @@ class signupActivity : AppCompatActivity() {
             var alamat = viewBind.AlamatTextInputLayout.editText?.text.toString().trim()
             var credit_card = viewBind.CreditCardTextInputLayout.editText?.text.toString().trim()
 
-            user = user(nama, email, password, alamat, credit_card)
+            user = user(nama, email,password,alamat,credit_card,"2000000")
 
             checker()
         }
@@ -48,7 +66,8 @@ class signupActivity : AppCompatActivity() {
                 viewBind.PasswordTextInputLayout.error = "Tolong isi kolom password"
                 pswCompleted = false
                 benar()
-            }else
+            }
+            else
             {
                 viewBind.PasswordTextInputLayout.error = ""
                 pswCompleted = true
@@ -203,9 +222,15 @@ class signupActivity : AppCompatActivity() {
         }
 
         if (isCompleted){
-            x.add(user)
-            Toast.makeText(this, "sign up berhasil", Toast.LENGTH_LONG).show()
-            finish()
+           if(index == -1){
+               x.add(user)
+               Toast.makeText(this, "sign up berhasil", Toast.LENGTH_LONG).show()
+               finish()
+           }else{
+               x.set(index,user)
+               Toast.makeText(this, "edit berhasil", Toast.LENGTH_LONG).show()
+               finish()
+           }
         }
     }
 

@@ -3,7 +3,7 @@ package model
 import android.os.Parcel
 import android.os.Parcelable
 
-open class saham(
+open class sahamwatchlist(
     var open: Int?,
     var high: Int?,
     var low: Int?,
@@ -11,7 +11,8 @@ open class saham(
     var volume: Int?,
     var symbol:String?,
     var companyname: String?,
-    var lastupdate: String?
+    var lastupdate: String?,
+    var index: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
@@ -21,7 +22,8 @@ open class saham(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
@@ -34,18 +36,19 @@ open class saham(
         parcel.writeString(symbol)
         parcel.writeString(companyname)
         parcel.writeString(lastupdate)
+        parcel.writeInt(index)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<saham> {
-        override fun createFromParcel(parcel: Parcel): saham {
-            return saham(parcel)
+    companion object CREATOR : Parcelable.Creator<sahamwatchlist> {
+        override fun createFromParcel(parcel: Parcel): sahamwatchlist {
+            return sahamwatchlist(parcel)
         }
 
-        override fun newArray(size: Int): Array<saham?> {
+        override fun newArray(size: Int): Array<sahamwatchlist?> {
             return arrayOfNulls(size)
         }
     }

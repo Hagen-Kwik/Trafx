@@ -8,16 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.a706012110039.signup.R
 import model.saham
 import com.a706012110039.signup.databinding.CardviewSahammarketBinding
+import com.a706012110039.signup.databinding.CardviewSahamportfolioBinding
+import model.sahamportfolio
 
-class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener: cardlistener):
-    RecyclerView.Adapter<recyclerviewsahamAdapter.viewHolder>() {
+class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val cardlistener: cardlistener):
+    RecyclerView.Adapter<recyclerviewportfolioAdapter.viewHolder>() {
 
     //memanage cardview saham market dan recyclerviewnya
     class viewHolder (itemView: View, val cardlistener: cardlistener): RecyclerView.ViewHolder(itemView){
-        val binding = CardviewSahammarketBinding.bind(itemView)
+        val binding = CardviewSahamportfolioBinding.bind(itemView)
 
-        fun setDatasahammarket(data: saham){
-            binding.Value.text = data.open.toString()
+        fun setDatasahammarket(data: sahamportfolio){
+            binding.curvalue.text = data.open.toString()
             //          binding.change.text = (data.open!!.toInt() - data.close!!.toInt()).toString()
 
             //mengubah warna (dikomen karena value nya belum ada)
@@ -26,9 +28,9 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
 //            }else{
 //                binding.change.setTextColor(Color.parseColor("#FFbf1f1f"))
 //            }
-            binding.timeupdated.text = data.lastupdate
-            binding.judul.text = data.symbol
-            binding.namaperusahaan.text = data.companyname
+            binding.qty.text = data.qty.toString()
+            binding.curchange.text = (data.close?.minus(data.buyat)).toString()
+            binding.price.text = data.close.toString()
 
             itemView.setOnClickListener {
                 cardlistener.onCardClick(adapterPosition)
@@ -40,7 +42,7 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): recyclerviewsahamAdapter.viewHolder {
+    ): recyclerviewportfolioAdapter.viewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
         // declare cardview
@@ -49,7 +51,7 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
     }
 
     //mengset data di cardviewnya
-    override fun onBindViewHolder(holder: recyclerviewsahamAdapter.viewHolder, position: Int) {
+    override fun onBindViewHolder(holder: recyclerviewportfolioAdapter.viewHolder, position: Int) {
         holder.setDatasahammarket(listSaham[position])
     }
 
