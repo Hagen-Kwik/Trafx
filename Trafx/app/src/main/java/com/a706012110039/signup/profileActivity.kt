@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class profileActivity : AppCompatActivity() {
     private lateinit var viewBind: ActivityProfileBinding;
+
     private val GetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == Activity.RESULT_OK){   // APLIKASI GALLERY SUKSES MENDAPATKAN IMAGE
             val uri = it.data?.data                 // GET PATH TO IMAGE FROM GALLEY
@@ -36,6 +37,21 @@ class profileActivity : AppCompatActivity() {
         setter(0)
     }
 
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        setter(0)
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+        setter(0)
+    }
+
+    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
+        super.onTopResumedActivityChanged(isTopResumedActivity)
+        setter(0)
+    }
+
     var nomor: Int = 0
     private fun GetIntent(){
         val angka = intent.getIntExtra("angka1", 0)
@@ -54,6 +70,22 @@ class profileActivity : AppCompatActivity() {
 
         viewBind.imageView.setOnClickListener{
             //itent ke ambil pp gambar
+        }
+
+        viewBind.withdraw.setOnClickListener {
+            var dialog = withdrawfragment()
+
+            dialog.show(supportFragmentManager, "customdialog")
+
+            setter(0)
+        }
+
+        viewBind.deposit.setOnClickListener {
+            var dialog = topupfragment()
+
+            dialog.show(supportFragmentManager, "customdialog")
+
+            setter(0)
         }
 
         viewBind.toolbar.get(0).setOnClickListener {
