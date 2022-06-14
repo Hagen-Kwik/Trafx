@@ -9,6 +9,13 @@ class sahamportfolio(
 
     fun addParent(Saham: saham){
         this.open = Saham.open
+        this.close = Saham.close
+        this.companyname = Saham.companyname
+        this.symbol = Saham.symbol
+        this.high = Saham.high
+        this.lastupdate = Saham.lastupdate
+        this.low = Saham.low
+        this.volume = Saham.volume
     }
 
 }
