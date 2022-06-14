@@ -11,7 +11,9 @@ open class saham(
     var volume: Int?,
     var symbol:String?,
     var companyname: String?,
-    var lastupdate: String?
+    var lastupdate: String?,
+    var openasli: Float?,
+    var closeAsli: Float?
 ) : Parcelable {
     constructor(parcel: Parcel?) : this(
         parcel?.readValue(Int::class.java.classLoader) as? Int,
@@ -21,8 +23,10 @@ open class saham(
         parcel?.readValue(Int::class.java.classLoader) as? Int,
         parcel?.readString(),
         parcel?.readString(),
-        parcel?.readString()
-    )
+        parcel?.readString(),
+        parcel?.readValue(Float::class.java.classLoader) as? Float,
+        parcel?.readValue(Float::class.java.classLoader) as? Float
+        )
 
 
 
@@ -35,6 +39,8 @@ open class saham(
         parcel.writeString(symbol)
         parcel.writeString(companyname)
         parcel.writeString(lastupdate)
+        parcel.writeValue(openasli)
+        parcel.writeValue(closeAsli)
     }
 
     override fun describeContents(): Int {

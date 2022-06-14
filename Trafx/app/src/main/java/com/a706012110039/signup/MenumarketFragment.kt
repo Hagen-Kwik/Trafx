@@ -22,6 +22,7 @@ import model.saham
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import kotlin.math.round
 
 
 class MenumarketFragment : Fragment(),cardlistener {
@@ -44,7 +45,6 @@ class MenumarketFragment : Fragment(),cardlistener {
 //            //your codes here
 //        }
         // Inflate the layout for this fragment
-        ReadFromDB()
 
         setupRecyclerView()
         listener()
@@ -74,11 +74,11 @@ class MenumarketFragment : Fragment(),cardlistener {
     }
 
     fun tesjalan(){
-        globalvar.listSaham.add(saham(1,2,3,4,5,"ASDF","perusahaangg1","10-123-123"))
-        globalvar.listSaham.add(saham(1,2,3,4,5,"KDRT","perusahaangg2","10-123-123"))
-        globalvar.listSaham.add(saham(1,2,3,4,5,"PKI","perusahaangg3","10-123-123"))
-        globalvar.listSaham.add(saham(1,2,3,4,5,"G30","perusahaangg4","10-123-123"))
-        globalvar.listSaham.add(saham(1,2,3,4,5,"PRBW","perusahaangg5","10-123-123"))
+        ReadFromDB("ADTH", "AdTheorent Holding Company")
+        ReadFromDB("PBFX", "PBF Logistics LP")
+        ReadFromDB("CMRE", "Costamare Inc")
+        ReadFromDB("VGR", "Vector Group Ltd")
+        ReadFromDB("AMCR", "Amcor PLC")
 
         adapter.notifyDataSetChanged()
     }
@@ -91,25 +91,33 @@ class MenumarketFragment : Fragment(),cardlistener {
         startActivity(myIntent)
     }
 
-    private fun ReadFromDB() {
+    private fun ReadFromDB(symbol:String, compname:String) {
 // to let internet work on main activity and not background
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
+        var url1 = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol="
+        var url2 = "&apikey=U088XM8LAU3JDVDX"
+        var url = url1 + symbol + url2
+
         val request = JsonObjectRequest(
             com.android.volley.Request.Method.GET,
-            "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=MSFT&apikey=U088XM8LAU3JDVDX"
+            url
             ,
             null,
             {
                 val jsonObj = it.getJSONObject("Weekly Time Series")
                 val jsonObjInner = jsonObj.getJSONObject("2022-06-13")
-                val openvalue = jsonObjInner.getString("1. open")
-                val closevalue = jsonObjInner.getString("2. high")
-                val lowvalue = jsonObjInner.getString("3. low")
-                val highvalue = jsonObjInner.getString("4. close")
-                val volumevalue = jsonObjInner.getString("5. volume")
-                globalvar.listSaham.add(saham(1,2,3,4,5,"PRBW","perusahaangg5","10-123-123"))
+                //round to int
+                val openvalue = round(jsonObjInner.getString("1. open").toDouble()).toInt() *14500
+                val closevalue =  round(jsonObjInner.getString("2. high").toDouble()).toInt() *14500
+                val lowvalue =  round(jsonObjInner.getString("3. low").toDouble()).toInt() *14500
+                val highvalue =  round(jsonObjInner.getString("4. close").toDouble()).toInt() *14500
+                val volumevalue =  round(jsonObjInner.getString("5. volume").toDouble()).toInt() *14500
+                val openasli = jsonObjInner.getString("1. open").toFloat() * 14500
+                val closeasli = jsonObjInner.getString("4. close").toFloat() * 14500
+
+                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli))
 
             },
             {
