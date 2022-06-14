@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         listener()
         x.add(user("a","a","a","a","1","2000000"))
 
-//        example: textview2 langsung aku panggil tanpa harus ada binding
-// okeyy tyyyyy        textView2.setText("adsfsda")
 
     }
     var pswCompleted = false

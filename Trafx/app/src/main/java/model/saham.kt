@@ -13,17 +13,18 @@ open class saham(
     var companyname: String?,
     var lastupdate: String?
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+    constructor(parcel: Parcel?) : this(
+        parcel?.readValue(Int::class.java.classLoader) as? Int,
+        parcel?.readValue(Int::class.java.classLoader) as? Int,
+        parcel?.readValue(Int::class.java.classLoader) as? Int,
+        parcel?.readValue(Int::class.java.classLoader) as? Int,
+        parcel?.readValue(Int::class.java.classLoader) as? Int,
+        parcel?.readString(),
+        parcel?.readString(),
+        parcel?.readString()
+    )
+
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(open)

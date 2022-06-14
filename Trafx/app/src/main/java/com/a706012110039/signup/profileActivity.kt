@@ -1,5 +1,6 @@
 package com.a706012110039.signup
 
+import Interface.dialoglistener
 import android.app.Activity
 import com.a706012110039.signup.publicuser.Companion.x
 import android.content.Intent
@@ -13,7 +14,7 @@ import database.globalvar
 import kotlinx.android.synthetic.main.activity_detilsaham.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class profileActivity : AppCompatActivity() {
+class profileActivity : AppCompatActivity(), dialoglistener {
     private lateinit var viewBind: ActivityProfileBinding;
 
     private val GetResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -73,7 +74,7 @@ class profileActivity : AppCompatActivity() {
         }
 
         viewBind.withdraw.setOnClickListener {
-            var dialog = withdrawfragment()
+            var dialog = withdrawfragment(this)
 
             dialog.show(supportFragmentManager, "customdialog")
 
@@ -103,5 +104,9 @@ class profileActivity : AppCompatActivity() {
         viewBind.Address.text = x.get(globalvar.curuser).alamat
         viewBind.creditcard.text = x.get(globalvar.curuser).credit_card
         viewBind.email.text = x.get(globalvar.curuser).email
+    }
+
+    override fun ondialogclicked() {
+        setter(0)
     }
 }

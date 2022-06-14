@@ -22,8 +22,9 @@ class user(
         parcel.readString(),
         parcel.readSerializable() as ArrayList<Int>,
         parcel.readSerializable() as ArrayList<sahamportfolio>
-    ) {
-    }
+    )
+
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nama)

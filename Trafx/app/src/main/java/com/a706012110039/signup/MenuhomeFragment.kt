@@ -33,6 +33,11 @@ class MenuhomeFragment : Fragment(), cardlistener {
         return viewbind.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     fun listener(){
         viewbind.imageView6.setOnClickListener{
             val myintent = Intent(activity, profileActivity::class.java)

@@ -51,7 +51,10 @@ class buysahamfragment:DialogFragment() {
             }else{
                 x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money!!.toInt() - viewbind.textInputLayout.editText?.text.toString().toInt()).toString()
     //            sahamportfolio = sahamportfolio(viewbind.textInputLayout.editText?.text.toString().toInt(),globalvar.listSaham.get(globalvar.cursaham).open!!.toInt())
-    //            x.get(globalvar.curuser).ownedstock.add()
+                val temp = sahamportfolio(3,20000)
+                temp.addParent(globalvar.listSaham.get(globalvar.cursaham))
+
+                x.get(globalvar.curuser).ownedstock.add(temp)
                 Toast.makeText(activity, "Buystock successful", Toast.LENGTH_LONG).show()
                 dismiss()
             }
