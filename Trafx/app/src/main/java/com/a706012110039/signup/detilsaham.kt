@@ -77,9 +77,19 @@ class detilsaham : AppCompatActivity() {
         viewbind.buyStock.setOnClickListener {
             openbuydialog()
         }
+
+        viewbind.sellStock.setOnClickListener {
+            openselldialog()
+        }
     }
     fun openbuydialog(){
         var dialog = buysahamfragment()
+
+        dialog.show(supportFragmentManager, "customdialog")
+    }
+
+    fun openselldialog(){
+        var dialog = sellsahamfragment()
 
         dialog.show(supportFragmentManager, "customdialog")
     }

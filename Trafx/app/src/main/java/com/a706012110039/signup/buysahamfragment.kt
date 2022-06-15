@@ -54,7 +54,7 @@ class buysahamfragment:DialogFragment() {
             }else{
                 var saham  = globalvar.listSaham.get(globalvar.cursaham)
 
-                x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money!!.toInt() - viewbind.textInputLayout.editText?.text.toString().toInt()).toString()
+                x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money.toString().toInt() - price).toString()
                 val temp = sahamportfolio(viewbind.textInputLayout.editText?.text.toString().toInt(), saham.open.toString().toInt())
                 temp.addParent(globalvar.listSaham.get(globalvar.cursaham))
 

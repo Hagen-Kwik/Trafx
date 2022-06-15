@@ -15,8 +15,9 @@ import model.sahamportfolio
 
 class sellsahamfragment:DialogFragment() {
     private lateinit var viewbind: FragmentSellsahamBinding
-    private var price:Int = 0
+    private var sellingstock:Int = 0
     private lateinit var sahamportfolio: sahamportfolio
+    private var stock:Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,37 +30,51 @@ class sellsahamfragment:DialogFragment() {
         return viewbind.root
     }
     private fun setup() {
+        for(i in 0.. x.get(globalvar.curuser).ownedstock.size-1){
+            if(x.get(globalvar.curuser).ownedstock.get(i).symbol == globalvar.listSaham.get(globalvar.cursaham).symbol){
+                stock += x.get(globalvar.curuser).ownedstock.get(i).qty
+            }
+        }
+
+
         val saham  = globalvar.listSaham.get(globalvar.cursaham)
         viewbind.symbol.text = saham.symbol
-        viewbind.stock.text
+        viewbind.stock.text = stock.toString()
         viewbind.companyName.text = saham.companyname
         viewbind.price.text = saham.open.toString()
-        viewbind.totalprice.text = price.toString()
         viewbind.userbalance.text = x.get(globalvar.curuser).money
+        viewbind.stock.text
     }
 
     private fun listener() {
         viewbind.textInputLayout.editText?.addTextChangedListener {
             var saham  = globalvar.listSaham.get(globalvar.cursaham)
 
-            price = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
-            viewbind.totalprice.text = price.toString()
+            sellingstock = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
+            viewbind.totalprice.text = sellingstock.toString()
         }
 
-        viewbind.buysaham.setOnClickListener {
-
-            if(price > x.get(globalvar.curuser).money!!.toInt() ){
-                Toast.makeText(activity, "Buystock Failed (insuffiecient money)", Toast.LENGTH_LONG).show()
+        viewbind.sellsaham.setOnClickListener {
+            if(viewbind.textInputLayout.editText?.text.toString().toInt() > stock ){
+                Toast.makeText(activity, "Sellstock Failed (insuffiecient stock)", Toast.LENGTH_LONG).show()
                 dismiss()
             }else{
-                var saham  = globalvar.listSaham.get(globalvar.cursaham)
-
-                x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money!!.toInt() - viewbind.textInputLayout.editText?.text.toString().toInt()).toString()
-                val temp = sahamportfolio(viewbind.textInputLayout.editText?.text.toString().toInt(), saham.open.toString().toInt())
-                temp.addParent(globalvar.listSaham.get(globalvar.cursaham))
-
-                x.get(globalvar.curuser).ownedstock.add(temp)
-                Toast.makeText(activity, "Buystock successful", Toast.LENGTH_LONG).show()
+                var boughtstock = viewbind.textInputLayout.editText?.text.toString().toInt()
+                x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money.toString().toInt() + viewbind.totalprice.text.toString().toInt()).toString()
+                for(i in 0.. x.get(globalvar.curuser).ownedstock.size-1){
+                    if(x.get(globalvar.curuser).ownedstock.get(i).symbol == globalvar.listSaham.get(globalvar.cursaham).symbol){
+                        if(x.get(globalvar.curuser).ownedstock.get(i).qty <= boughtstock){
+                            boughtstock -= x.get(globalvar.curuser).ownedstock.get(i).qty
+                            x.get(globalvar.curuser).ownedstock.removeAt(i)
+                        }else{
+                            x.get(globalvar.curuser).ownedstock.get(i).qty -= boughtstock
+                            boughtstock = 0
+                        }
+                        if(boughtstock == 0) {
+                            break
+                        }
+                    }
+                }
                 dismiss()
             }
         }

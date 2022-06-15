@@ -107,7 +107,8 @@ class MenumarketFragment : Fragment(),cardlistener {
             null,
             {
                 val jsonObj = it.getJSONObject("Weekly Time Series")
-                val jsonObjInner = jsonObj.getJSONObject("2022-06-13")
+                val jsonObjInner = jsonObj.getJSONObject("2022-06-14")
+
                 //round to int
                 val openvalue = round(jsonObjInner.getString("1. open").toDouble()).toInt() *14500
                 val closevalue =  round(jsonObjInner.getString("2. high").toDouble()).toInt() *14500
