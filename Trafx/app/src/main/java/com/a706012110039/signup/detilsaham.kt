@@ -1,17 +1,21 @@
 package com.a706012110039.signup
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import com.a706012110039.signup.databinding.ActivityDetilsahamBinding
+import com.a706012110039.signup.publicuser.Companion.x
+import com.androidplot.xy.*
 import database.globalvar
 import model.saham
-import model.user
-import com.a706012110039.signup.publicuser.Companion.x
-import kotlinx.android.synthetic.main.activity_detilsaham.*
+import java.text.FieldPosition
+import java.text.Format
+import java.text.ParsePosition
+import java.util.*
 import kotlin.math.roundToInt
+
 
 class detilsaham : AppCompatActivity() {
     private lateinit var viewbind: ActivityDetilsahamBinding
@@ -28,7 +32,8 @@ class detilsaham : AppCompatActivity() {
         val saham = globalvar.listSaham[position]
         display(saham)
 
-        listener()
+        listener()          
+        
     }
 
     fun getbookmark(){
@@ -94,6 +99,9 @@ class detilsaham : AppCompatActivity() {
 
         dialog.show(supportFragmentManager, "customdialog")
     }
+
+    private var plot: XYPlot? = null
+
     fun display(saham: saham){
         viewbind.companyname.text = saham.companyname
         viewbind.symbol.text = saham.symbol
@@ -109,10 +117,44 @@ class detilsaham : AppCompatActivity() {
         viewbind.change.text = temppstring
         if(viewbind.change.text.contains("-")){
             viewbind.change.setTextColor(Color.parseColor("#FFbf1f1f"))
-
         }else{
             viewbind.change.setTextColor(Color.parseColor("#FF1fbf44"))
-
         }
+
+
+
+        val t = saham.numberforGRAPH
+        val ss: Array<Int> = t!!.toTypedArray()
+        Log.d("print", t.toString())
+//        val series1: XYSeries = new simpleXYSeries(Arrays.asList(*series1Number), SimpleXYSerues.ArrayFormat)
+
+        plot = viewbind.XYPlot
+
+
+        // turn the above arrays into XYSeries':
+        // (Y_VALS_ONLY means use the element index as the x value)
+        val series1: XYSeries = SimpleXYSeries(t,SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1")
+
+
+        // create formatters to use for drawing a series using LineAndPointRenderer
+        // and configure them from xml:
+
+        // create formatters to use for drawing a series using LineAndPointRenderer
+        // and configure them from xml:
+        val series1Format = LineAndPointFormatter(Color.RED, Color.GREEN, null, null)
+
+
+        // add an "dash" effect to the series2 line:
+
+        // add an "dash" effect to the series2 line:
+
+
+        series1Format.interpolationParams =
+            CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Uniform)
+
+
+        plot!!.addSeries(series1, series1Format)
+
+        
     }
 }

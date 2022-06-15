@@ -7,6 +7,15 @@
     tools:context=".detilsaham"
     android:background="@color/navy">
 
+    <com.androidplot.xy.XYPlot
+        android:id="@+id/XYPlot"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change" />
+
+
     <TextView
         android:id="@+id/companyname7"
         android:layout_width="wrap_content"
@@ -201,12 +210,11 @@
         android:id="@+id/companyname3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="High"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/graph" />
+        app:layout_constraintTop_toBottomOf="@+id/XYPlot" />
 
     <TextView
         android:id="@+id/change"
@@ -217,17 +225,6 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/symbol"
         app:layout_constraintTop_toBottomOf="@+id/value" />
-
-    <ImageView
-        android:id="@+id/graph"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/change"
-        app:layout_constraintTop_toBottomOf="@+id/change"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <View
         android:id="@+id/view"

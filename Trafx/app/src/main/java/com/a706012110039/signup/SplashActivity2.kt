@@ -3,20 +3,12 @@ package com.a706012110039.signup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import com.a706012110039.signup.databinding.ActivitySplash2Binding
 
 import android.animation.*
-import android.graphics.Color
 import android.os.StrictMode
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.LinearInterpolator
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import database.VolleySingleton
@@ -82,7 +74,13 @@ class SplashActivity2 : AppCompatActivity() {
                 val openasli = jsonObjInner.getString("1. open").toFloat() * 14500
                 val closeasli = jsonObjInner.getString("4. close").toFloat() * 14500
 
-                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli))
+                var dataforGRAPH: MutableList<Int> = arrayListOf()
+                var dates= arrayOf("2022-06-14", "2022-06-10", "2022-06-03", "2022-05-27", "2022-05-20", "2022-05-13", "2022-04-29", "2022-04-22", "2022-04-14")
+                for (date in dates){
+                    dataforGRAPH.add((jsonObj.getJSONObject(date).getString("4. close").toDouble()).toInt()*14500)
+                }
+
+                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli,dataforGRAPH))
 
             },
             {
