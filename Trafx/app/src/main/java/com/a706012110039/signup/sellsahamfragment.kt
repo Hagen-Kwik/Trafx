@@ -27,6 +27,7 @@ class sellsahamfragment:DialogFragment() {
         viewbind = FragmentSellsahamBinding.inflate(layoutInflater)
         setup()
         listener()
+        viewbind.sellsaham.isEnabled = false
         return viewbind.root
     }
     private fun setup() {
@@ -49,33 +50,47 @@ class sellsahamfragment:DialogFragment() {
     private fun listener() {
         viewbind.textInputLayout.editText?.addTextChangedListener {
             var saham  = globalvar.listSaham.get(globalvar.cursaham)
-
-            sellingstock = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
-            viewbind.totalprice.text = sellingstock.toString()
+            if(!viewbind.textInputLayout.editText?.text.isNullOrBlank()){
+                sellingstock = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
+                viewbind.totalprice.text = sellingstock.toString()
+                if(viewbind.totalprice.text.toString().toInt() != 0){
+                    viewbind.sellsaham.isEnabled = true
+                }
+            }else{
+                viewbind.sellsaham.isEnabled = false
+            }
         }
 
         viewbind.sellsaham.setOnClickListener {
-            if(viewbind.textInputLayout.editText?.text.toString().toInt() > stock ){
-                Toast.makeText(activity, "Sellstock Failed (insuffiecient stock)", Toast.LENGTH_LONG).show()
-                dismiss()
-            }else{
-                var boughtstock = viewbind.textInputLayout.editText?.text.toString().toInt()
-                x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money.toString().toInt() + viewbind.totalprice.text.toString().toInt()).toString()
-                for(i in 0.. x.get(globalvar.curuser).ownedstock.size-1){
-                    if(x.get(globalvar.curuser).ownedstock.get(i).symbol == globalvar.listSaham.get(globalvar.cursaham).symbol){
-                        if(x.get(globalvar.curuser).ownedstock.get(i).qty <= boughtstock){
-                            boughtstock -= x.get(globalvar.curuser).ownedstock.get(i).qty
-                            x.get(globalvar.curuser).ownedstock.removeAt(i)
-                        }else{
-                            x.get(globalvar.curuser).ownedstock.get(i).qty -= boughtstock
-                            boughtstock = 0
-                        }
-                        if(boughtstock == 0) {
-                            break
+            var check = false
+
+            if(viewbind.textInputLayout.editText?.text != null){
+                if(viewbind.textInputLayout.editText?.text.toString().toInt() > stock ){
+                    Toast.makeText(activity, "Sellstock Failed (insuffiecient stock)", Toast.LENGTH_LONG).show()
+                    dismiss()
+                }else{
+                    var boughtstock = viewbind.textInputLayout.editText?.text.toString().toInt()
+                    x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money.toString().toInt() + viewbind.totalprice.text.toString().toInt()).toString()
+                    for(i in 0.. x.get(globalvar.curuser).ownedstock.size-1){
+                        if(x.get(globalvar.curuser).ownedstock.get(i).symbol == globalvar.listSaham.get(globalvar.cursaham).symbol){
+                            if(x.get(globalvar.curuser).ownedstock.get(i).qty <= boughtstock){
+                                boughtstock -= x.get(globalvar.curuser).ownedstock.get(i).qty
+                                x.get(globalvar.curuser).ownedstock.removeAt(i)
+                            }else{
+                                x.get(globalvar.curuser).ownedstock.get(i).qty -= boughtstock
+                                boughtstock = 0
+                            }
+                            if(boughtstock == 0) {
+                                break
+                            }
                         }
                     }
-                }
-                dismiss()
+                    dismiss()
+            }
+
+            }else{
+                Toast.makeText(activity, "select nummber of stock first", Toast.LENGTH_LONG).show()
+
             }
         }
     }

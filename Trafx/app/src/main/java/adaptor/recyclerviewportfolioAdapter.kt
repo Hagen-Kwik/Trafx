@@ -1,6 +1,7 @@
 package adaptor
 
 import Interface.cardlistener
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import model.saham
 import com.a706012110039.signup.databinding.CardviewSahammarketBinding
 import com.a706012110039.signup.databinding.CardviewSahamportfolioBinding
 import model.sahamportfolio
+import kotlin.math.roundToInt
 
 class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val cardlistener: cardlistener):
     RecyclerView.Adapter<recyclerviewportfolioAdapter.viewHolder>() {
@@ -19,7 +21,7 @@ class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val
         val binding = CardviewSahamportfolioBinding.bind(itemView)
 
         fun setDatasahammarket(data: sahamportfolio){
-            binding.curvalue.text = data.open.toString()
+            binding.curvalue.text = (data.close?.times(data.qty)).toString()
             //          binding.change.text = (data.open!!.toInt() - data.close!!.toInt()).toString()
 
             //mengubah warna (dikomen karena value nya belum ada)
@@ -31,7 +33,18 @@ class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val
             binding.no.text = (adapterPosition + 1).toString()
             binding.code.text = data.symbol
             binding.qty.text = data.qty.toString()
-            binding.curchange.text = (data.close?.minus(data.buyat)).toString()
+            var sda = data.closeAsli?.minus(data.openasli!!)
+            var temppp = data.closeAsli?.let { sda?.div(it) }
+            var multiply = (temppp?.times(100)?.roundToInt() ?:0) / 100.0
+            var temppstring = "$multiply%"
+            binding.curchange.text = temppstring
+            if(binding.curchange.text.contains("-")){
+                binding.curchange.setTextColor(Color.parseColor("#FFbf1f1f"))
+
+            }else{
+                binding.curchange.setTextColor(Color.parseColor("#FF1fbf44"))
+
+            }
             binding.price.text = data.close.toString()
 
             itemView.setOnClickListener {

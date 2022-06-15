@@ -53,10 +53,7 @@ class profileActivity : AppCompatActivity(), dialoglistener {
         setter(0)
     }
 
-    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
-        super.onTopResumedActivityChanged(isTopResumedActivity)
-        setter(0)
-    }
+
 
     var nomor: Int = 0
     private fun GetIntent(){
@@ -87,7 +84,7 @@ class profileActivity : AppCompatActivity(), dialoglistener {
         }
 
         viewBind.deposit.setOnClickListener {
-            var dialog = topupfragment()
+            var dialog = topupfragment(this)
 
             dialog.show(supportFragmentManager, "customdialog")
 

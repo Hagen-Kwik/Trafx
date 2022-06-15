@@ -1,5 +1,6 @@
 package com.a706012110039.signup
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -98,13 +99,20 @@ class detilsaham : AppCompatActivity() {
         viewbind.symbol.text = saham.symbol
         viewbind.curhigh.text = saham.high.toString()
         viewbind.curlow.text = saham.low.toString()
-        viewbind.curlow2.text = saham.closeAsli.toString()
+        viewbind.curlow2.text = saham.close.toString()
         viewbind.curvolume.text = saham.volume.toString()
-        viewbind.value.text = saham.openasli.toString()
+        viewbind.value.text = saham.open.toString()
         var sda = saham.closeAsli?.minus(saham.openasli!!)
         var temppp = saham.closeAsli?.let { sda?.div(it) }
         var multiply = (temppp?.times(100)?.roundToInt() ?:0) / 100.0
         var temppstring = "$multiply%"
         viewbind.change.text = temppstring
+        if(viewbind.change.text.contains("-")){
+            viewbind.change.setTextColor(Color.parseColor("#FFbf1f1f"))
+
+        }else{
+            viewbind.change.setTextColor(Color.parseColor("#FF1fbf44"))
+
+        }
     }
 }

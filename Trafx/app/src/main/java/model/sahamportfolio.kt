@@ -18,6 +18,8 @@ class sahamportfolio(
         this.lastupdate = Saham.lastupdate
         this.low = Saham.low
         this.volume = Saham.volume
+        this.closeAsli = Saham.closeAsli
+        this.openasli = Saham.openasli
     }
 
 }

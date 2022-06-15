@@ -1,5 +1,6 @@
 package com.a706012110039.signup
 
+import Interface.dialoglistener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import com.a706012110039.signup.databinding.FragmenTopupBinding
 import com.a706012110039.signup.publicuser.Companion.x
 import database.globalvar
 
-class topupfragment:DialogFragment() {
+class topupfragment(val xyz : dialoglistener):DialogFragment() {
     private lateinit var viewbind: FragmenTopupBinding
 
     override fun onCreateView(
@@ -28,6 +29,7 @@ class topupfragment:DialogFragment() {
         viewbind.topup.setOnClickListener {
             x.get(globalvar.curuser).money = (x.get(globalvar.curuser).money!!.toInt() + viewbind.textInputLayout.editText?.text.toString().toInt()).toString()
             Toast.makeText(activity, "Topup successful", Toast.LENGTH_LONG).show()
+            xyz.ondialogclicked()
             dismiss()
         }
     }

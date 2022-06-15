@@ -1,6 +1,7 @@
 package adaptor
 
 import Interface.cardlistener
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,11 +35,13 @@ class recyclerviewsahamAdapter(val listSaham: ArrayList<saham>, val cardlistener
 
             binding.change.text = temppstring
 //mengubah warna (dikomen karena value nya belum ada)
-//            if(binding.change.text.toString().toInt() < 0){
-//                binding.change.setTextColor(Color.parseColor("#FF1fbf44"))
-//            }else{
-//                binding.change.setTextColor(Color.parseColor("#FFbf1f1f"))
-//            }
+            if(binding.change.text.contains("-")){
+                binding.change.setTextColor(Color.parseColor("#FFbf1f1f"))
+
+            }else{
+                binding.change.setTextColor(Color.parseColor("#FF1fbf44"))
+
+            }
 
 
             itemView.setOnClickListener {

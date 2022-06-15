@@ -26,6 +26,7 @@ class buysahamfragment:DialogFragment() {
 
         setup()
         listener()
+        viewbind.buysaham.isEnabled = false
         return viewbind.root
     }
 
@@ -41,10 +42,16 @@ class buysahamfragment:DialogFragment() {
     private fun listener() {
         viewbind.textInputLayout.editText?.addTextChangedListener {
             var saham  = globalvar.listSaham.get(globalvar.cursaham)
-
-            price = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
-            viewbind.totalprice.text = price.toString()
-        }
+            if(!viewbind.textInputLayout.editText?.text.isNullOrBlank()){
+                price = viewbind.textInputLayout.editText?.text.toString().toInt() * saham.open.toString().toInt()
+                viewbind.totalprice.text = price.toString()
+                if(viewbind.totalprice.text.toString().toInt() != 0){
+                    viewbind.buysaham.isEnabled = true
+                }
+            }else{
+                viewbind.buysaham.isEnabled = false
+            }
+                    }
 
         viewbind.buysaham.setOnClickListener {
 

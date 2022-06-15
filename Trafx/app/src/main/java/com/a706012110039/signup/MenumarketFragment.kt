@@ -18,9 +18,11 @@ import com.android.volley.toolbox.JsonObjectRequest
 import database.VolleySingleton
 import database.globalvar
 import kotlinx.android.synthetic.main.fragment_menumarket.*
+import kotlinx.coroutines.delay
 import model.saham
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.internal.wait
 import org.json.JSONObject
 import kotlin.math.round
 
@@ -75,10 +77,10 @@ class MenumarketFragment : Fragment(),cardlistener {
 
     fun tesjalan(){
         ReadFromDB("ADTH", "AdTheorent Holding Company")
+        ReadFromDB("AMCR", "Amcor PLC")
         ReadFromDB("PBFX", "PBF Logistics LP")
         ReadFromDB("CMRE", "Costamare Inc")
         ReadFromDB("VGR", "Vector Group Ltd")
-        ReadFromDB("AMCR", "Amcor PLC")
 
         adapter.notifyDataSetChanged()
     }
