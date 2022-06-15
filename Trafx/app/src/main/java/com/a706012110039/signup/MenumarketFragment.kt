@@ -50,10 +50,7 @@ class MenumarketFragment : Fragment(),cardlistener {
 
         setupRecyclerView()
         listener()
-        if(globalvar.repeat == 0){
-            tesjalan()
-            globalvar.repeat++
-        }
+
 
         return viewbind.root
     }
@@ -75,15 +72,7 @@ class MenumarketFragment : Fragment(),cardlistener {
         viewbind.recyclerviewsaham.adapter = adapter
     }
 
-    fun tesjalan(){
-        ReadFromDB("ADTH", "AdTheorent Holding Company")
-        ReadFromDB("AMCR", "Amcor PLC")
-        ReadFromDB("PBFX", "PBF Logistics LP")
-        ReadFromDB("CMRE", "Costamare Inc")
-        ReadFromDB("VGR", "Vector Group Ltd")
 
-        adapter.notifyDataSetChanged()
-    }
 
     override fun onCardClick(position: Int) {
         globalvar.cursaham = position
@@ -93,44 +82,7 @@ class MenumarketFragment : Fragment(),cardlistener {
         startActivity(myIntent)
     }
 
-    private fun ReadFromDB(symbol:String, compname:String) {
-// to let internet work on main activity and not background
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
-        var url1 = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol="
-        var url2 = "&apikey=U088XM8LAU3JDVDX"
-        var url = url1 + symbol + url2
-
-        val request = JsonObjectRequest(
-            com.android.volley.Request.Method.GET,
-            url
-            ,
-            null,
-            {
-                val jsonObj = it.getJSONObject("Weekly Time Series")
-                val jsonObjInner = jsonObj.getJSONObject("2022-06-14")
-
-                //round to int
-                val openvalue = round(jsonObjInner.getString("1. open").toDouble()).toInt() *14500
-                val closevalue =  round(jsonObjInner.getString("2. high").toDouble()).toInt() *14500
-                val lowvalue =  round(jsonObjInner.getString("3. low").toDouble()).toInt() *14500
-                val highvalue =  round(jsonObjInner.getString("4. close").toDouble()).toInt() *14500
-                val volumevalue =  round(jsonObjInner.getString("5. volume").toDouble()).toInt() *14500
-                val openasli = jsonObjInner.getString("1. open").toFloat() * 14500
-                val closeasli = jsonObjInner.getString("4. close").toFloat() * 14500
-
-                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli))
-
-            },
-            {
-                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show()
-                it.printStackTrace()
-            }
-        )
-
-        context?.let { VolleySingleton.getInstance(it).addToRequestQueue(request) }
-    }
 
 
 

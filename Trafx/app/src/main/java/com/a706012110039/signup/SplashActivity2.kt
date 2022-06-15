@@ -8,13 +8,21 @@ import com.a706012110039.signup.databinding.ActivitySplash2Binding
 
 import android.animation.*
 import android.graphics.Color
+import android.os.StrictMode
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import database.VolleySingleton
+import database.globalvar
+import model.saham
+import kotlin.math.round
 
 class SplashActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivitySplash2Binding;
@@ -27,6 +35,8 @@ class SplashActivity2 : AppCompatActivity() {
         binding = ActivitySplash2Binding.inflate(layoutInflater)
         binding.imageView2.alpha = 0f
 
+        tesjalan()
+
         star = findViewById(R.id.imageView2)
         star.alpha = 0f
         star.animate().setDuration(3000).alpha(1f).withEndAction{
@@ -36,4 +46,52 @@ class SplashActivity2 : AppCompatActivity() {
             finish()
         }
     }
+
+    fun tesjalan(){
+        ReadFromDB("ADTH", "AdTheorent Holding Company")
+        ReadFromDB("AMCR", "Amcor PLC")
+        ReadFromDB("PBFX", "PBF Logistics LP")
+        ReadFromDB("CMRE", "Costamare Inc")
+        ReadFromDB("VGR", "Vector Group Ltd")
+    }
+
+    private fun ReadFromDB(symbol:String, compname:String) {
+// to let internet work on main activity and not background
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        var url1 = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol="
+        var url2 = "&apikey=U088XM8LAU3JDVDX"
+        var url = url1 + symbol + url2
+
+        val request = JsonObjectRequest(
+            Request.Method.GET,
+            url
+            ,
+            null,
+            {
+                val jsonObj = it.getJSONObject("Weekly Time Series")
+                val jsonObjInner = jsonObj.getJSONObject("2022-06-14")
+
+                //round to int
+                val openvalue = round(jsonObjInner.getString("1. open").toDouble()).toInt() *14500
+                val closevalue =  round(jsonObjInner.getString("2. high").toDouble()).toInt() *14500
+                val lowvalue =  round(jsonObjInner.getString("3. low").toDouble()).toInt() *14500
+                val highvalue =  round(jsonObjInner.getString("4. close").toDouble()).toInt() *14500
+                val volumevalue =  round(jsonObjInner.getString("5. volume").toDouble()).toInt() *14500
+                val openasli = jsonObjInner.getString("1. open").toFloat() * 14500
+                val closeasli = jsonObjInner.getString("4. close").toFloat() * 14500
+
+                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli))
+
+            },
+            {
+                Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
+                it.printStackTrace()
+            }
+        )
+
+        this?.let { VolleySingleton.getInstance(it).addToRequestQueue(request) }
+    }
+
 }
