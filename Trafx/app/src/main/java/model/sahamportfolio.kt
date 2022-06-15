@@ -8,8 +8,6 @@ class sahamportfolio(
 ) : saham(parcel) {
 
     fun addParent(Saham: saham){
-        this.buyat = buyat
-        this.qty = qty
         this.open = Saham.open
         this.close = Saham.close
         this.companyname = Saham.companyname

@@ -1,16 +1,17 @@
 package com.a706012110039.signup
 
 import Interface.cardlistener
-import adaptor.recyclerviewsahamAdapter
 import adaptor.recyclerviewwatchlistAdapter
-import android.app.ActionBar
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.recreate
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a706012110039.signup.databinding.FragmentMenuhomeBinding
 import com.a706012110039.signup.publicuser.Companion.x
@@ -26,11 +27,10 @@ class MenuhomeFragment : Fragment(), cardlistener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         viewbind = FragmentMenuhomeBinding.inflate(layoutInflater)
-
         setupRecyclerView()
         listener()
 
@@ -40,7 +40,10 @@ class MenuhomeFragment : Fragment(), cardlistener {
 
     override fun onResume() {
         super.onResume()
+        adapter.notifyDataSetChanged()
+
     }
+
 
     fun listener(){
         viewbind.imageView6.setOnClickListener{
@@ -48,6 +51,7 @@ class MenuhomeFragment : Fragment(), cardlistener {
             startActivity(myintent)
         }
     }
+
     fun setupRecyclerView(){
         inputdata()
         val layoutManager = LinearLayoutManager(requireActivity().baseContext)
@@ -59,7 +63,6 @@ class MenuhomeFragment : Fragment(), cardlistener {
         for (j in 0..x.get(globalvar.curuser).watchlist.size-1){
             for (i in 0..globalvar.listSaham.size-1){
                 if(x.get(globalvar.curuser).watchlist.get(j) == i){
-
                     listSahamwatch.add(sahamwatchlist(globalvar.listSaham.get(i).open,globalvar.listSaham.get(i).high,globalvar.listSaham.get(i).low,globalvar.listSaham.get(i).close,globalvar.listSaham.get(i).volume,globalvar.listSaham.get(i).symbol,globalvar.listSaham.get(i).companyname,globalvar.listSaham.get(i).lastupdate,j)
                     )
                 }

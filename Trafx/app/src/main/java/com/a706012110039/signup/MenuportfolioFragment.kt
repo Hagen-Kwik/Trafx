@@ -21,6 +21,7 @@ import model.sahamportfolio
 class MenuportfolioFragment : Fragment(),cardlistener {
     private lateinit var viewbind: FragmentMenuportfolioBinding
     private lateinit var adapter: recyclerviewportfolioAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

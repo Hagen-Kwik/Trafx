@@ -21,7 +21,7 @@ class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val
         val binding = CardviewSahamportfolioBinding.bind(itemView)
 
         fun setDatasahammarket(data: sahamportfolio){
-            binding.curvalue.text = (data.close?.times(data.qty)).toString()
+            binding.curvalue.text = (data.open?.times(data.qty)).toString()
             //          binding.change.text = (data.open!!.toInt() - data.close!!.toInt()).toString()
 
             //mengubah warna (dikomen karena value nya belum ada)
@@ -45,7 +45,7 @@ class recyclerviewportfolioAdapter(val listSaham: ArrayList<sahamportfolio>, val
                 binding.curchange.setTextColor(Color.parseColor("#FF1fbf44"))
 
             }
-            binding.price.text = data.close.toString()
+            binding.price.text = data.open.toString()
 
             itemView.setOnClickListener {
                 cardlistener.onCardClick(adapterPosition)

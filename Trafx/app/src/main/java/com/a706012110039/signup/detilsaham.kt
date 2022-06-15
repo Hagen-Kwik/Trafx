@@ -101,7 +101,7 @@ class detilsaham : AppCompatActivity() {
         viewbind.curlow.text = saham.low.toString()
         viewbind.curlow2.text = saham.close.toString()
         viewbind.curvolume.text = saham.volume.toString()
-        viewbind.value.text = saham.open.toString()
+        viewbind.value.text = saham.close.toString()
         var sda = saham.closeAsli?.minus(saham.openasli!!)
         var temppp = saham.closeAsli?.let { sda?.div(it) }
         var multiply = (temppp?.times(100)?.roundToInt() ?:0) / 100.0
