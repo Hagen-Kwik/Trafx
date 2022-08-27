@@ -63,7 +63,7 @@ class SplashActivity2 : AppCompatActivity() {
             null,
             {
                 val jsonObj = it.getJSONObject("Weekly Time Series")
-                val jsonObjInner = jsonObj.getJSONObject("2022-06-14")
+                val jsonObjInner = jsonObj.getJSONObject("2022-08-26")
 
                 //round to int
                 val openvalue = round(jsonObjInner.getString("1. open").toDouble()).toInt() *14500
@@ -75,12 +75,12 @@ class SplashActivity2 : AppCompatActivity() {
                 val closeasli = jsonObjInner.getString("4. close").toFloat() * 14500
 
                 var dataforGRAPH: MutableList<Int> = arrayListOf()
-                var dates= arrayOf("2022-06-14", "2022-06-10", "2022-06-03", "2022-05-27", "2022-05-20", "2022-05-13", "2022-04-29", "2022-04-22", "2022-04-14")
+                var dates= arrayOf("2022-08-26", "2022-08-19", "2022-08-12", "2022-08-05", "2022-07-29", "2022-07-22", "2022-07-15", "2022-07-08", "2022-07-01")
                 for (date in dates){
                     dataforGRAPH.add((jsonObj.getJSONObject(date).getString("4. close").toDouble()).toInt()*14500)
                 }
 
-                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"14-06-2022",openasli,closeasli,dataforGRAPH))
+                globalvar.listSaham.add(saham(openvalue,highvalue,lowvalue,closevalue,volumevalue,symbol,compname,"26-08-2022",openasli,closeasli,dataforGRAPH))
 
             },
             {
